@@ -1,23 +1,9 @@
-import logo from './logo.svg';
-import './App.css';
-
+import Home from './components/home.js'
+import Chat from './components/chat.js'
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Chat user={{name: 'Jaspreet', chat: [{id:1,text:'vc bvc tgds dg'},{id:1,text:'as ffa vcabc'},{id:2,text:'asad asf cdbc'},{id:1,text:'a bcd sfdfaf'},{id:2,text:'vcxvcx vxc'}]}}/>
     </div>
   );
 }
