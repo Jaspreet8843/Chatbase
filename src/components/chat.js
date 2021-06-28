@@ -1,6 +1,7 @@
 import React, {useState,useEffect} from 'react';
 import './chat.css';
 //import ReactDOM from 'react-dom';
+import Axios from 'axios';
 
 function Chat(props) {
     
@@ -8,6 +9,7 @@ function Chat(props) {
     const receiver = props.user.receiver;
     const [msg,setMsg] = useState('');
     const [count, setCount] = useState(props.user.data);
+    const base = "http://localhost:3001";
     
     const handleSubmit = (evt) => {
         evt.preventDefault();
@@ -17,6 +19,12 @@ function Chat(props) {
         const msgObj = {id:msgId,sender:sender,receiver:receiver,msg:msg,time:dt};
         setCount(newCount);
         console.log(msgObj);
+        //send data by POST
+        Axios.post(base+"/send",{
+            userdata:msgObj,
+        }).then(()=>{
+            alert("success");
+        });
     }
     
     return (
