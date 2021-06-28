@@ -8,17 +8,18 @@ function Chat(props) {
     const sender = props.user.sender;
     const receiver = props.user.receiver;
     const [msg,setMsg] = useState('');
-    const [count, setCount] = useState(props.user.data);
+    const [chats, setChats] = useState([]);
     const base = "http://localhost:3001";
     
+    //send message
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        const newCount = [...count,{id:1,text:msg}];
         const msgId = sender + receiver + Date.now();
         const dt = new Date();
-        const msgObj = {id:msgId,sender:sender,receiver:receiver,msg:msg,time:dt};
-        setCount(newCount);
-        console.log(msgObj);
+        const msgObj = {msgId:msgId,sender:sender,receiver:receiver,msg:msg,time:dt};
+        const newChat = [...chats,msgObj];
+        setChats(newChat);
+        //console.log(msgObj);
         //send data by POST
         Axios.post(base+"/send",{
             userdata:msgObj,
@@ -27,14 +28,23 @@ function Chat(props) {
         });
     }
     
+    //retrieve chats
+    useEffect(()=>{
+        console.log("response");
+        Axios.get(base+"/chat").then(response=>{
+            console.log(response.data);
+            setChats(response.data);
+        });
+    },[]);
+
     return (
         <div className="box">
             <div className="container">
                 {sender} to {receiver}
             </div> 
-            {count.map(data => (
+            {chats.map(data => (
                 <p>
-                    {data.id} : {data.text}
+                    {data.msgId} : {data.msg}
                 </p>
             ))}
             <div>

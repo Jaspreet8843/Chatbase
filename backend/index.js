@@ -23,7 +23,7 @@ app.get("/",(req,res)=>{
 app.post("/send",(req,res)=>{
     const obj = req.body.userdata;
     const sql = "insert into messages(msgId,sender,receiver,msg,time) values(?,?,?,?,?)";
-    const values = [obj.id,obj.sender,obj.receiver,obj.msg,obj.time];
+    const values = [obj.msgId,obj.sender,obj.receiver,obj.msg,obj.time];
     db.query(sql,values,(err,result)=>{
         if(err){
             console.log(err);
@@ -34,6 +34,23 @@ app.post("/send",(req,res)=>{
         }
     });
 
+});
+
+app.get("/chat",(req,res)=>{
+    const from = "Jaspreet";
+    const to = "Manab";
+    const sql = "select * from messages where sender = (?) and receiver = (?) order by time asc";
+    const values = [from,to];
+    db.query(sql,values,(err,result)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            //success
+            //console.log(result);
+            res.send(result);
+        }
+    });
 });
 
 app.listen(port,()=>{
