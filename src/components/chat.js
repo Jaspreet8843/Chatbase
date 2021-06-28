@@ -1,27 +1,28 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import './chat.css';
 //import ReactDOM from 'react-dom';
 
-
-
-
-
-export function Chat(props) {
-    const [name, setName] = useState("");
-    const [count, setCount] = useState(props);
+function Chat(props) {
+    
+    const [name, setName] = useState(props.user.name);
+    const [count, setCount] = useState(props.user.data);
+    
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        count.user.data.
+        const newCount = [...count,{id:1,text:name}];
+        setCount(newCount);
+        //console.log(count);
     }
+    
     return (
         <div className="box">
             <div className="container">
-                {count.user.name}
+                {name}
             </div> 
-            {count.user.data.map(name => (
-                <ul>
-                <li>{name.text}</li>
-                </ul>
+            {count.map(data => (
+                <p>
+                    {data.id} : {data.text}
+                </p>
             ))}
             <div>
             <form onSubmit={handleSubmit}>
@@ -40,11 +41,5 @@ export function Chat(props) {
       
     );
   }
-
-
-
-
-
-
 
 export default Chat;
