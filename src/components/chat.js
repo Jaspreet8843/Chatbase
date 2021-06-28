@@ -4,20 +4,25 @@ import './chat.css';
 
 function Chat(props) {
     
-    const [name, setName] = useState(props.user.name);
+    const sender = props.user.sender;
+    const receiver = props.user.receiver;
+    const [msg,setMsg] = useState('');
     const [count, setCount] = useState(props.user.data);
     
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        const newCount = [...count,{id:1,text:name}];
+        const newCount = [...count,{id:1,text:msg}];
+        const msgId = sender + receiver + Date.now();
+        const dt = new Date();
+        const msgObj = {id:msgId,sender:sender,receiver:receiver,msg:msg,time:dt};
         setCount(newCount);
-        //console.log(count);
+        console.log(msgObj);
     }
     
     return (
         <div className="box">
             <div className="container">
-                {name}
+                {sender} to {receiver}
             </div> 
             {count.map(data => (
                 <p>
@@ -27,11 +32,11 @@ function Chat(props) {
             <div>
             <form onSubmit={handleSubmit}>
             <label>
-            Frirst Name:
+            Message:
             <input
                 type="text"
-                value={name}
-                onChange={e => setName(e.target.value)}
+                hint="type your message here"
+                onChange={e => setMsg(e.target.value)}
             />
             </label>
             <input type="submit" value="Submit" />
