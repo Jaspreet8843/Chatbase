@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import './chat.css';
 //import ReactDOM from 'react-dom';
 import Axios from 'axios';
@@ -13,7 +13,21 @@ function Chat(props) {
     const [msg,setMsg] = useState('');
     const [chats, setChats] = useState([]);
     const base = "http://localhost:3001";
+    const messageRef = useRef();
+    const textInput = React.useRef();
+    const clearInput = () => (textInput.current.value = "");
     
+    //scroll to bottom
+    useEffect(() => {
+        if (messageRef.current) {
+          messageRef.current.scrollIntoView(
+            {
+              behavior: 'smooth',
+              block: 'end',
+              inline: 'nearest'
+            })
+        }
+      })
     //send message
     const handleSubmit = (evt) => {
         evt.preventDefault();
@@ -46,24 +60,34 @@ function Chat(props) {
     return (
         <div className="box">
             <div className="container">
-                {sender} to {receiver}
+                {receiver}
             </div> 
+            <div class="messageData">
             {chats.map(data => (
-                <p>
-                    {data.msgId} : {data.msg}
+                //<p>
+                //    {data.msgId} : {data.msg}
+                //</p>
+               
+                
+                <p class={data.sender==receiver?"left":"right"} ref={messageRef}>
+                    <div class="data">{data.msg} </div>
+                    <div class="time">{data.time.toString().substring(11,16)}</div>
+                    <span class="clear"></span>
                 </p>
+                
             ))}
-            <div>
+            </div>
+            <div class="messageCont">
             <form onSubmit={handleSubmit}>
             <label>
-            Message:
             <input
+                ref={textInput}
                 type="text"
-                hint="type your message here"
-                onChange={e => setMsg(e.target.value)}
+                placeholder="type your message here"
+                onChange={e => setMsg(e.target.value) }
             />
             </label>
-            <input type="submit" value="Submit" />
+            <input type="submit" value="Send" onClick={clearInput}/>
              </form>
         </div>
         </div>
@@ -72,3 +96,5 @@ function Chat(props) {
   }
 
 export default Chat;
+
+

@@ -37,9 +37,11 @@ app.post("/send",(req,res)=>{
 
 app.get("/chat",(req,res)=>{
     const from = "Jaspreet";
-    const to = "Man";
+    const to = "Manab";
     const sql = "select * from messages where sender = (?) and receiver = (?) order by time asc";
     const values = [from,to];
+    //const sql = "select * from messages order by time asc";
+    //const values = [to,from];
     db.query(sql,values,(err,result)=>{
         if(err){
             console.log(err);
