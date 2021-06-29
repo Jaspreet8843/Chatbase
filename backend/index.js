@@ -36,12 +36,10 @@ app.post("/send",(req,res)=>{
 });
 
 app.get("/chat",(req,res)=>{
-    const from = "Jaspreet";
-    const to = "Manab";
-    const sql = "select * from messages where sender = (?) and receiver = (?) order by time asc";
-    const values = [from,to];
-    //const sql = "select * from messages order by time asc";
-    //const values = [to,from];
+    const from = req.query.sender;
+    const to = req.query.receiver;
+    const sql = "select * from messages where (sender = (?) and receiver = (?)) or (sender = (?) and receiver = (?)) order by time asc";
+    const values = [from,to,to,from];
     db.query(sql,values,(err,result)=>{
         if(err){
             console.log(err);
@@ -53,6 +51,7 @@ app.get("/chat",(req,res)=>{
     });
 });
 
+//realtime message sync
 io.on('connection',socket=>{
     socket.on('message',msgObj=>{
         io.emit('message',msgObj)

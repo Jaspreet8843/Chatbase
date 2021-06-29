@@ -4,9 +4,9 @@ import Chat, { NameForm } from './components/chat.js'
 function App() {
   return (
     <div>
-      <Chat user={{sender: 'Jaspreet', receiver: 'Manab'}}/>
-      <Chat user={{sender: 'Manab', receiver: 'Jaspreet'}}/>
-      
+      <Chat user={{sender: 'Jas', receiver: 'Man'}}/>
+      <Chat user={{sender: 'Man', receiver: 'Jas'}}/>  
+    
     </div>
   );
 }
