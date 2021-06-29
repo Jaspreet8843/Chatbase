@@ -4,6 +4,9 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const mysql = require("mysql");
 
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
+
 const port = 3001;
 app.use(cors());
 app.use(express.json());
@@ -28,17 +31,13 @@ app.post("/send",(req,res)=>{
         if(err){
             console.log(err);
         }
-        else{
-            //success
-            console.log(result);
-        }
     });
 
 });
 
 app.get("/chat",(req,res)=>{
     const from = "Jaspreet";
-    const to = "Manab";
+    const to = "Man";
     const sql = "select * from messages where sender = (?) and receiver = (?) order by time asc";
     const values = [from,to];
     db.query(sql,values,(err,result)=>{
@@ -47,12 +46,17 @@ app.get("/chat",(req,res)=>{
         }
         else{
             //success
-            //console.log(result);
             res.send(result);
         }
     });
 });
 
-app.listen(port,()=>{
+io.on('connection',socket=>{
+    socket.on('message',msgObj=>{
+        io.emit('message',msgObj)
+    })
+});
+
+http.listen(port,()=>{
     console.log("Running express on port 3001");
 });

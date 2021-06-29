@@ -3,6 +3,9 @@ import './chat.css';
 //import ReactDOM from 'react-dom';
 import Axios from 'axios';
 
+import io from 'socket.io-client';
+const socket = io("http://localhost:3001", { transports: ['websocket', 'polling', 'flashsocket'] });
+
 function Chat(props) {
     
     const sender = props.user.sender;
@@ -19,8 +22,8 @@ function Chat(props) {
         const msgObj = {msgId:msgId,sender:sender,receiver:receiver,msg:msg,time:dt};
         const newChat = [...chats,msgObj];
         setChats(newChat);
+        socket.emit('message',newChat);
         //console.log(msgObj);
-        //send data by POST
         Axios.post(base+"/send",{
             userdata:msgObj,
         }).then(()=>{
@@ -30,11 +33,14 @@ function Chat(props) {
     
     //retrieve chats
     useEffect(()=>{
-        console.log("response");
         Axios.get(base+"/chat").then(response=>{
-            console.log(response.data);
+            // console.log(response.data);
             setChats(response.data);
         });
+        socket.on('message',(msgObj)=>{
+            // console.log(msgObj);
+            setChats(msgObj);
+        })
     },[]);
 
     return (
