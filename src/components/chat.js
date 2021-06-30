@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './chat.css';
+import sendIcon from '../sendIcon.svg';
 //import ReactDOM from 'react-dom';
 import Axios from 'axios';
 
@@ -32,7 +33,8 @@ function Chat(props) {
     const handleSubmit = (evt) => {
         evt.preventDefault();
         const msgId = sender + receiver + Date.now();
-        const dt = new Date();
+        const d = new Date();
+        const dt= d.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
         const msgObj = { msgId: msgId, sender: sender, receiver: receiver, msg: msg, time: dt };
         const newChat = [...chats, msgObj];
         setChats(newChat);
@@ -67,6 +69,7 @@ function Chat(props) {
             <div className="container">
                 {receiver}
             </div>
+            <div class="messageDataCont">
             <div class="messageData">
                 {chats.map(data => (
                     //<p>
@@ -75,12 +78,14 @@ function Chat(props) {
 
 
                     <p class={data.sender == receiver ? "left" : "right"} ref={messageRef}>
-                        <div class="data">{data.msg} </div>
-                        <div class="time">{data.time.toString().substring(11, 16)}</div>
+                        <div class="data">{data.msg}</div>
+                        <div class="time">{data.time.toString().substring(10, 15)}</div>
                         <span class="clear"></span>
+                    
                     </p>
 
                 ))}
+            </div>
             </div>
             <div class="messageCont">
                 <form onSubmit={handleSubmit}>
@@ -92,7 +97,8 @@ function Chat(props) {
                             onChange={e => setMsg(e.target.value)}
                         />
                     </label>
-                    <input type="submit" value="Send" onClick={clearInput} />
+    
+                    <button type="submit" onClick={clearInput} src={sendIcon}><img src={sendIcon}></img></button>
                 </form>
             </div>
         </div>

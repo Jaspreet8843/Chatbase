@@ -2,13 +2,19 @@ span.clear {
     clear: left; 
     display: block; 
 }
-
+.messageDataCont{
+    background-color: darkblue;
+}
 .messageData{
     z-index: 3;
     height:60vh;
     overflow-y:scroll;
     background-color:whitesmoke;
     position: relative;
+    border-radius:20px 20px 0 0;
+    -webkit-box-shadow: 0px 0px 6px -2px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 6px -2px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 6px -2px rgba(0,0,0,0.75);
     
 }
 
@@ -17,66 +23,108 @@ span.clear {
 }
 
 .messageData .data{
-    float: left;
+    display: table-cell;
+    max-width: 25vw;
 }
 
 .messageData .time{
-    float: right;
+    height: 100%;
+    display: table-cell;
+    vertical-align: bottom;
     font-size:xx-small;
     position: relative;
-    top: 10px;
+    padding-right: 5px;
     left: 15px;
     color: gray;
-    margin-right: 10px;
 
     
 }
-
-.messageData .left{
+.messageData p{
+    display: table;
+    position: relative;
+    text-align: left;
+    word-break:break-all;
     border-radius: 25px;
-    background-color: rgb(240, 235, 235);
+    max-width: 30vw;
+    padding:5px 20px 10px 10px;
     width: fit-content;
-    padding:5px 15px;
-    margin-left: 10px;
     -webkit-box-shadow: 0px 0px 3px -2px rgba(0,0,0,0.75);
 	-moz-box-shadow: 0px 0px 3px -2px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 3px -2px rgba(0,0,0,0.75);
+}
+.messageData .left{
+    background-image: radial-gradient(whitesmoke,lightgray);
+    margin-left: 10px;
+    
 }
 
 
 .messageData .right{
-    border-radius: 25px;
-    background-color:skyblue;
-    width: fit-content;
-    padding:5px 15px;
+    background-image: radial-gradient(blue,darkblue);
+    color:white;
     margin-left: auto;
     margin-right: 0;
-    -webkit-box-shadow: 0px 0px 3px -2px rgba(0,0,0,0.75);
-	-moz-box-shadow: 0px 0px 3px -2px rgba(0,0,0,0.75);
-	box-shadow: 0px 0px 3px -2px rgba(0,0,0,0.75);
+   
 }
+
+.messageData .right .time{
+    color:white;
+}
+
 
 .messageCont{
-    background-color: skyblue;
+    display: table;
+    width: 100%;
+    background-color: whitesmoke;
     border-radius:0 0 10px 10px;
-    z-index: 5;
+    z-index: 10;
+    -webkit-box-shadow: 0px 0px 6px -2px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 6px -2px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 6px -2px rgba(0,0,0,0.75);
 }
 
+
+
 .messageCont input[type=text]{
+    display: table-cell;
     border-radius: 10px;
     padding:2% 8%; 
-    margin:5% 2%;
-    width: 60%;
+    margin:7% 15% 10% 5%;
+    width: 55%;
     border: solid 1px lightgrey;
     outline: none;
 }
-
+.messageCont button{
+    border:none;
+    background:none;
+    display:table-cell;
+    vertical-align: middle;
+    margin-left: 1%;
+    margin:1%;
+    width: 1px;
+    height: 1px;
+}
+.messageCont img{
+    position: relative;
+    top: -25px;
+    right:45px;
+    width: 50px;
+    height: 50px;
+    -webkit-transition: all .2s ease-out;
+	-moz-transition: all .2s ease-out;
+	-o-transition: all .2s ease-out;
+	-ms-transition: all .2s ease-out;
+	transition: all .2s ease-out;
+}
+.messageCont img:hover{
+    transform: scale(1.1);
+}
 .messageCont input[type=submit]{
     padding:2%;
     border-radius: 10px;
-    background-color: whitesmoke;
+    background-color: darkblue;
     border: solid 1px lightgrey;
-    color: grey;
+    color: white;
     -webkit-transition: all .2s ease-out;
 	-moz-transition: all .2s ease-out;
 	-o-transition: all .2s ease-out;
