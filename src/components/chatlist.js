@@ -7,19 +7,39 @@ function Chatlist(props){
     const username=props.username;
     const [chats, setChats] = useState([]);
     const [msg, setMsg] = useState('');
+    const [tables, setTables] = useState([]);
     const base = "http://localhost:3001";
+
     const onButtonClick=(id)=>{
         props.setChatId(id);
     }
+
+    useEffect(()=>{
+        if (tables.length>0)
+        {
+            if(tables.includes(username+msg)||tables.includes(msg+username))
+            {   
+                props.setChatId(tables.includes(username+msg)?username+msg:msg+username);
+            }
+            else{
+                console.log("tables: "+tables);
+                axios.post(base + "/createchat", {
+                    touser: msg,
+                    curuser:username,
+        
+                }).then(() => {
+                    alert("success");
+                });
+                alert("table created... refresh page to view changes");
+            }
+
+        }
+        
+    },[tables]);
+
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        axios.post(base + "/createchat", {
-            touser: msg,
-            curuser:username,
-
-        }).then(() => {
-            alert("success");
-        });
+        chats.map(x=> {setTables(tables => [...tables,x.table_id])});
     }
         useEffect(() => {
             axios.get(base + "/chatlist", {

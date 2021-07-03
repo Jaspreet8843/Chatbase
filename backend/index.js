@@ -26,14 +26,14 @@ app.get("/",(req,res)=>{
 
 app.post("/send",(req,res)=>{
     const obj = req.body.userdata;
+    const d = new Date();
     const sql = "insert into "+obj.table_name+" (msgId,sender,receiver,msg,time) values(?,?,?,?,?)";
-    const values = [obj.msgId,obj.sender,obj.receiver,obj.msg,obj.time];
+    const values = [obj.msgId,obj.sender,obj.receiver,obj.msg,d];
     db.query(sql,values,(err,result)=>{
         if(err){
             console.log(err);
         }
     });
-    const d = new Date();
     const sql2 = "update userchatmap set lastupdate = ? where table_id = ?";
     const values2 = [d, obj.table_name];
     db.query(sql2,values2,(err,result)=>{
