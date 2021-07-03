@@ -20,7 +20,7 @@ function App() {
           <Chatlist username={username} setChatId={setChatId}/> 
         </div>
         <div class="chat">
-          <Chat username={username} table_id={chatId}/>
+        <Chat username={username} table_id={chatId}/>
         </div>
       </Route>
          

@@ -41,12 +41,10 @@ function Chat(props) {
             }
         }).then(response => {
             setReceiver(response.data);
-            console.log(response.data);
         });
 
 
         socket.on('message', (msgObj) => {
-             console.log(msgObj);
             setChats(msgObj);
         })
     }, [props]);
@@ -68,10 +66,9 @@ function Chat(props) {
     //send message
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        const msgId = username + receiver + Date.now();
         const d = new Date();
-        //const dt= d.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
-        const msgObj = {table_name:table_name, msgId: msgId, sender: username, receiver: receiver, msg: msg, time: d };
+        const msgId = username + receiver + Date.now();
+        const msgObj = {table_name:table_name, msgId: msgId, sender: username, receiver: receiver, msg: msg, time:d};
         const newChat = [...chats, msgObj];
         setChats(newChat);
         socket.emit('message', newChat);
@@ -100,7 +97,7 @@ function Chat(props) {
 
                     <p class={data.receiver == username ? "left" : "right"} ref={messageRef}>
                         <div class="data">{data.msg}</div>
-                        <div class="time">{data.time.toString().substring(10,15)+data.time.toString().substring(18,20)}</div>
+                        <div class="time">{(new Date(data.time).getHours()%12||12)+":"+("0"+new Date(data.time).getMinutes()).slice(-2)+" "+(new Date(data.time).getHours()>11?"PM":"AM")}</div>
                         <span class="clear"></span>
                     
                     </p>
