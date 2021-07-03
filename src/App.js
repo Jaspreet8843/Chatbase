@@ -9,13 +9,13 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-d
 import { useEffect, useState } from 'react';
 
 function App() {
-  const [chatId, setChatId] = useState('manabJas');
-  const [username, setusername] = useState('Jas');
+  const [chatId, setChatId] = useState('msJas');
+  const [username, setusername] = useState('jas');
   return (
     <Router>
       <Switch>
     <div class="home">
-    <Route exact path="/chats/:id">
+    <Route exact path="/">
         <div class="chatlist">
           <Chatlist username={username} setChatId={setChatId}/> 
         </div>
