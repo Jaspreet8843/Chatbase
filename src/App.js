@@ -9,8 +9,8 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-d
 import { useEffect, useState } from 'react';
 
 function App() {
-  const [chatId, setChatId] = useState('msJas');
-  const [username, setusername] = useState('jas');
+  const [chatId, setChatId] = useState('DEFAULT');
+  const [username, setusername] = useState('Jaspreet');
   return (
     <Router>
       <Switch>

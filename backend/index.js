@@ -93,6 +93,13 @@ app.get("/receiver", (req,res)=>{
             
         }
     })
+       const sql2 = "update "+table_id+" set status='READ' where receiver=?";
+       const values2 = [username];
+       db.query(sql2, values2, (err2, results2) => {
+           if (err2){
+               console.log(err);
+           }
+       })
 
 });
 
@@ -111,7 +118,7 @@ app.post("/createchat",(req,res)=>{
         }
     })
 
-    const sql2 = "create table "+chatid+" (msgID varchar(255), sender varchar(255), receiver varchar(255), msg varchar(4095), time datetime)";
+    const sql2 = "create table "+chatid+" (msgID varchar(255), sender varchar(255), receiver varchar(255), msg varchar(4095), time datetime, status varchar(50) default 'SENT')";
     const values2 = [];
     db.query(sql2, values2, (err, result) => {
         if (err){

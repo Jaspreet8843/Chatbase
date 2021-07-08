@@ -45,6 +45,7 @@ function Chatlist(props) {
         // }).then(() => {
         //     alert("success");
         // });
+        setTables(tables=>[...tables,msg]);
         chats.map(x=> {setTables(tables => [...tables,x.table_id])});
     }
     useEffect(() => {
@@ -58,21 +59,33 @@ function Chatlist(props) {
     }, []);
 
 
-    return (
-        <div>
+
+
+    const nulldisplay =
             <div>
                 <form onSubmit={handleSubmit}>
-                    <input type="text" placeholder="Enter user name to chat" onChange={e => setMsg(e.target.value)} />
-                    <button type="submit" onClick={clearInput}>Chat</button>
+                    <input type="text" placeholder="Enter user name to chat" onChange={e => setMsg(e.target.value)}/>
+                    <button type="submit">Chat</button>
                 </form>
-                {chats.map(data => (
-                    <p><button value={data.table_id} onClick={() => onButtonClick(data.table_id)}> {(data.user1 == username) ? data.user2 : data.user1}</button>
-                        <br></br>
-                    </p>
-                ))}
-                
-            </div>
+            </div>;
 
+    const chatdisplay = 
+            <div>
+            <form onSubmit={handleSubmit}>
+                <input type="text" placeholder="Enter user name to chat" onChange={e => setMsg(e.target.value)} /> 
+                <button type="submit">Chat</button>
+            </form>
+            {chats.map(data => (
+                <p><button value={data.table_id} onClick={() => onButtonClick(data.table_id)}> {(data.user1 === username) ? data.user2 : data.user1}</button>
+                    <br></br>
+                </p>
+            ))}
+        </div>;          
+
+
+    return (
+        <div>    
+        {chatdisplay}
         </div>
     );
 
