@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import Axios from 'axios';
 import { baseUrl } from '../../base';
-import { useHistory } from "react-router-dom";
+import { useHistory,Link } from "react-router-dom";
 import './login.css';
 
 export default function Login(props) {
@@ -41,7 +41,7 @@ export default function Login(props) {
 
     return (
         <div class="container-fluid login-div m-0 p-0">
-            <nav class="navbar navbar-light bg-light">
+            <nav class="navbar navbar-light">
                 <a class="navbar-brand" href="#">ChatBase</a>
             </nav>
             <h3>Login</h3>
@@ -58,6 +58,9 @@ export default function Login(props) {
                     <div>
                         <button type="submit" className="btn btn-success mt-2">Login</button>
                     </div>
+                    <div className="text-center">
+                    <Link to="/register" className="mt-2" style={{color: "white"}}>Already have an account. Click here to get back</Link>
+                </div>
             </form>
             <h1>{loginStatus}</h1>
         </div>

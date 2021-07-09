@@ -1,10 +1,10 @@
 import React,{useState,useEffect} from 'react';
 import Axios from 'axios';
 import { baseUrl } from '../../base';
-import { useHistory } from "react-router-dom";
+import { useHistory,Link } from "react-router-dom";
 import './register.css';
 
-export default function Register() {
+export default function Register(props) {
 
     const [usernameReg, setUsernameReg] = useState("");
     const [passwordReg, setPasswordReg] = useState("");
@@ -16,6 +16,7 @@ export default function Register() {
     useEffect(() => {
         Axios.get(baseUrl+"/login").then((response) => {
           if (response.data.loggedIn == true) {
+            props.setusername(response.data.user[0].username);
             history.push('/');
           }
         });
@@ -35,7 +36,7 @@ export default function Register() {
    
     return (
         <div className="row register-div m-0 p-0">
-            <nav class="navbar navbar-light bg-light">
+            <nav class="navbar navbar-light">
                 <a class="navbar-brand" href="#">ChatBase</a>
             </nav>
             <h3>Register</h3>
@@ -54,7 +55,10 @@ export default function Register() {
                             setPasswordReg(e.target.value);
                         }}></input>
                 <div>
-                    <button type="submit" className="btn btn-primary mt-2">Register</button>
+                    <button type="submit" className="btn btn-danger mt-2">Register</button>
+                </div>
+                <div className="text-center">
+                    <Link to="/login" className="mt-2" style={{color: "white"}}>Need a new account. Click here to get one</Link>
                 </div>
             </form>
             <h3>{registerStatus}</h3>

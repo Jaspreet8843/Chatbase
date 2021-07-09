@@ -5,7 +5,11 @@ import {baseUrl} from '../base';
 import {useHistory} from 'react-router-dom';
 
 function Chatlist(props) {
+    const history = useHistory();
     const username = props.username;
+    if(!username){
+        history.push("/login");
+    }
     const [chats, setChats] = useState([]);
     const [msg, setMsg] = useState('');
     const [tables, setTables] = useState([]);
@@ -13,7 +17,6 @@ function Chatlist(props) {
     const onButtonClick=(id)=>{
         props.setChatId(id);
     }
-    const history = useHistory();
 
     useEffect(()=>{
         if (tables.length>0)
@@ -78,8 +81,8 @@ function Chatlist(props) {
 
     const chatdisplay = 
             <div>
-            <h3>ChatBase {username}</h3>
-            <button onClick={logout}>Logout</button>
+            <h3>ChatBase : {username}</h3>
+            <button onClick={logout} className="logoutBtn">Logout</button>
             <form onSubmit={handleSubmit} className="my-2">
                 <input type="text" placeholder="Enter user name to chat" className="chatInput" onChange={e => setMsg(e.target.value)} /> 
                 <button type="submit" className="chatBtn">Chat</button>

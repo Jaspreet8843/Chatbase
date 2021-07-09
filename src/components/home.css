@@ -1,9 +1,8 @@
 .box{
-    border: 1px solid lightgrey;
+    /* border: 1px solid lightgrey; */
     display: block;
     width: 100%;
     text-align: center;
-    border-radius: 10px;
 }
 .container {
     font-size: 8vh;

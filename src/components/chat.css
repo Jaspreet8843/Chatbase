@@ -1,10 +1,10 @@
 .container-name {
-    background-color: #218838;
+    background-image: radial-gradient(blue,darkblue);
     display: inline-block;
     color: white;
     width: 100%;
     z-index: 5;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     padding: 1rem 1rem;
     display: flex;
     align-content: center;
@@ -68,9 +68,7 @@ span.clear {
 }
 .messageData .left{
     /* background-image: radial-gradient(whitesmoke,lightgray); */
-    background-color: greenyellow;
     margin-left: 10px;
-    
 }
 
 .messageData .left .readreceipts{
@@ -79,8 +77,7 @@ span.clear {
 }
 
 .messageData .right{
-    /* background-image: radial-gradient(blue,darkblue); */
-    background-color: white;
+    background-image: radial-gradient(blue,darkblue);
     color:black;
     margin-left: auto;
     margin-right: 10px;
@@ -93,7 +90,7 @@ span.clear {
 }
 
 .messageData .right .time{
-    color:black;
+    color:whitesmoke;
 }
 
 
@@ -108,7 +105,7 @@ span.clear {
 }
 
 .messageCont form{
-    background-color: darkorchid;
+    background-color: rgb(96, 122, 122);
 }
 
 .messageData .default{
@@ -121,7 +118,8 @@ span.clear {
 .messageCont label{
     width: 90%;
     padding: 0 1rem;
-    background-color: darkorchid;
+    margin: 0;
+    background-color: cadetblue;
 }
 
 .messageCont input[type=text]{
@@ -133,13 +131,14 @@ span.clear {
     outline: none;
     width: 100%;
     background-color: #fff;
+    color: black;
 }
 .sendMsg{
     width: 10%;
     position: relative;
     display: flex;
     justify-content: center;
-    background-color: darkorchid;
+    background-color: cadetblue;
 }
 .messageCont button{
     border:none;
@@ -150,7 +149,7 @@ span.clear {
 }
 .messageCont img{
     width: 60%;
-    background-color: darkorchid;
+    background-color: cadetblue;
     -webkit-transition: all .2s ease-out;
 	-moz-transition: all .2s ease-out;
 	-o-transition: all .2s ease-out;

@@ -44,7 +44,7 @@ function App() {
       <Switch>
         <div className="container-fluid row m-0 p-0">
           <Route exact path="/register">
-            <Register />
+            <Register setusername={setusername} />
           </Route>
           <Route exact path="/login">
             <Login setusername={setusername}/>

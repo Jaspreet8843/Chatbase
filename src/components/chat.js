@@ -107,7 +107,7 @@ function Chat(props) {
                         <input
                             ref={textInput}
                             type="text"
-                            placeholder="type your message here"
+                            placeholder="Type your message here"
                             onChange={e => setMsg(e.target.value)}
                         />
                     </label>

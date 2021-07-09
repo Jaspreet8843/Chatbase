@@ -15,6 +15,7 @@
     border-radius: 5px;
     margin-right: 0.5rem;
     width: 80%;
+    color: black;
 }
 
 .chatBtn{
@@ -26,13 +27,20 @@
     padding: 0.5rem 1rem;
 }
 
+.logoutBtn{
+    border: none;
+    outline: none;
+    color: coral;
+    background-color: transparent;
+}
+
 .chatUser{
-    color: #000;
+    color: whitesmoke;
     background-color: transparent;
     width: 100%;
     text-align: left;
     outline: none;
     border: none;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid lightslategrey;
     padding: 1rem 0.2rem;
 }

@@ -9,7 +9,7 @@
 nav{
     width:100%;
     margin-bottom: 1rem;
-    background-color: #218838;
+    background-image: radial-gradient(blue,darkblue);
 }
 
 nav a{
@@ -34,9 +34,8 @@ nav a{
 .login-div input{
     background-color: transparent;
     color: #000;
-    border: none;
     padding: 0.2rem 0.5rem;
     outline: none;
-    border: 1px solid black;
+    border: 1px solid whitesmoke;
     border-radius: 10px;
 }
