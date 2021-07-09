@@ -1,9 +1,23 @@
+.container-name {
+    background-color: #218838;
+    display: inline-block;
+    color: white;
+    width: 100%;
+    z-index: 5;
+    border: 1px solid black;
+    padding: 1rem 1rem;
+    display: flex;
+    align-content: center;
+    border-radius: 5px 5px 0 0;
+    font-weight: 800;
+  }
+
 span.clear { 
     clear: left; 
     display: block; 
 }
 .messageDataCont{
-    background-color: darkblue;
+    background-color: green;
 }
 .messageData{
     display: table;
@@ -11,13 +25,11 @@ span.clear {
     z-index: 3;
     height:70vh;
     overflow-y:scroll;
-    background-color:whitesmoke;
     position: relative;
-    border-radius:20px 20px 0 0;
     -webkit-box-shadow: 0px 0px 6px -2px rgba(0,0,0,0.75);
 	-moz-box-shadow: 0px 0px 6px -2px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 6px -2px rgba(0,0,0,0.75);
-    
+    padding: 0.5rem 0;
 }
 
 .messageData::-webkit-scrollbar{
@@ -27,6 +39,7 @@ span.clear {
 .messageData .data{
     display: table-cell;
     max-width: 25vw;
+    background-color: transparent;
 }
 
 .messageData .time{
@@ -38,8 +51,7 @@ span.clear {
     padding-right: 5px;
     left: 15px;
     color: gray;
-
-    
+    background-color: transparent;    
 }
 .messageData p{
     display: table;
@@ -55,18 +67,21 @@ span.clear {
 	box-shadow: 0px 0px 3px -2px rgba(0,0,0,0.75);
 }
 .messageData .left{
-    background-image: radial-gradient(whitesmoke,lightgray);
+    /* background-image: radial-gradient(whitesmoke,lightgray); */
+    background-color: greenyellow;
     margin-left: 10px;
     
 }
 
 .messageData .left .readreceipts{
     display: none;
+    background-color: transparent;
 }
 
 .messageData .right{
-    background-image: radial-gradient(blue,darkblue);
-    color:white;
+    /* background-image: radial-gradient(blue,darkblue); */
+    background-color: white;
+    color:black;
     margin-left: auto;
     margin-right: 10px;
    
@@ -74,10 +89,11 @@ span.clear {
 
 .messageData .right .readreceipts{
     display: inline;
+    background-color: transparent;
 }
 
 .messageData .right .time{
-    color:white;
+    color:black;
 }
 
 
@@ -85,13 +101,15 @@ span.clear {
     display: table;
     width: 100%;
     background-color: whitesmoke;
-    border-radius:0 0 10px 10px;
     z-index: 10;
     -webkit-box-shadow: 0px 0px 6px -2px rgba(0,0,0,0.75);
 	-moz-box-shadow: 0px 0px 6px -2px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 6px -2px rgba(0,0,0,0.75);
 }
 
+.messageCont form{
+    background-color: darkorchid;
+}
 
 .messageData .default{
     color: grey;
@@ -100,31 +118,39 @@ span.clear {
     width: 100% ;
 }
 
+.messageCont label{
+    width: 90%;
+    padding: 0 1rem;
+    background-color: darkorchid;
+}
+
 .messageCont input[type=text]{
     display: table-cell;
     border-radius: 10px;
-    padding:2% 8%; 
-    margin:20px 15% 20px 20px;
-    width: 55%;
-    border: solid 1px lightgrey;
+    padding: 1rem 1rem;
+    margin: 1rem 0;
+    border: none;
     outline: none;
+    width: 100%;
+    background-color: #fff;
+}
+.sendMsg{
+    width: 10%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    background-color: darkorchid;
 }
 .messageCont button{
     border:none;
     background:none;
     display:table-cell;
     vertical-align: middle;
-    margin-left: 1%;
-    margin:1%;
-    width: 1px;
-    height: 1px;
+    width: 90%;
 }
 .messageCont img{
-    position: relative;
-    top: -25px;
-    right:45px;
-    width: 50px;
-    height: 50px;
+    width: 60%;
+    background-color: darkorchid;
     -webkit-transition: all .2s ease-out;
 	-moz-transition: all .2s ease-out;
 	-o-transition: all .2s ease-out;

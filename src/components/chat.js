@@ -3,7 +3,7 @@ import './chat.css';
 import sendIcon from '../sendIcon.svg';
 //import ReactDOM from 'react-dom';
 import Axios from 'axios';
-import {baseUrl} from '../base';
+import { baseUrl } from '../base';
 
 import io from 'socket.io-client';
 const socket = io(baseUrl, { transports: ['websocket', 'polling', 'flashsocket'] });
@@ -23,14 +23,13 @@ function Chat(props) {
 
     //operations to perform when a different chat is loaded
     useEffect(() => {
-        
+
         //check if a chat is selected
-        if(table_name!=='DEFAULT')
-        {
+        if (table_name !== 'DEFAULT') {
             //retrieve chats
             Axios.get(base + "/chat", {
                 params: {
-                    table_name:table_name
+                    table_name: table_name
                 }
             }).then(response => {
                 setChats(response.data);
@@ -40,7 +39,7 @@ function Chat(props) {
             Axios.get(base + "/receiver", {
                 params: {
                     user: props.username,
-                    table_id:table_name
+                    table_id: table_name
                 }
             }).then(response => {
                 setReceiver(response.data);
@@ -52,8 +51,8 @@ function Chat(props) {
         }
     }, [props]);
 
-    
-        //scroll to bottom
+
+    //scroll to bottom
     useEffect(() => {
         if (messageRef.current) {
             messageRef.current.scrollIntoView(
@@ -63,7 +62,7 @@ function Chat(props) {
                     inline: 'nearest'
                 })
         }
-    
+
     })
 
 
@@ -73,7 +72,7 @@ function Chat(props) {
         evt.preventDefault();
         const d = new Date();
         const msgId = username + receiver + Date.now();
-        const msgObj = {table_name:table_name, msgId: msgId, sender: username, receiver: receiver, msg: msg, time:d};
+        const msgObj = { table_name: table_name, msgId: msgId, sender: username, receiver: receiver, msg: msg, time: d };
         const newChat = [...chats, msgObj];
         setChats(newChat);
         socket.emit('message', newChat);
@@ -86,72 +85,58 @@ function Chat(props) {
     }
 
 
-    const chatdisplay = 
-    <div className="box">
-        <div className="container">
-            {receiver}
-        </div>
-        <div class="messageDataCont">
-        <div class="messageData">
-            {chats.map(data => (
-                <p class={data.receiver === username ? "left" : "right"} ref={messageRef}>
-                    <div class="data">{data.msg}</div>
-                    <div class="time">{(new Date(data.time).getHours()%12||12)+":"+("0"+new Date(data.time).getMinutes()).slice(-2)+" "+(new Date(data.time).getHours()>11?"PM":"AM")}&ensp;<div class="readreceipts">{(data.status==='READ'?"✔" :" ")}&#x2714;</div></div>
-                    <span class="clear"></span>
-                </p>
-            ))}
-        </div>
-        </div>
-        <div class="messageCont">
-            <form onSubmit={handleSubmit}>
-                <label>
-                    <input
-                        ref={textInput}
-                        type="text"
-                        placeholder="type your message here"
-                        onChange={e => setMsg(e.target.value)}
-                    />
-                </label>
-
-                <button type="submit" onClick={clearInput} src={sendIcon}><img src={sendIcon}></img></button>
-            </form>
-        </div>
-    </div>;
-
-
-    const nulldisplay = 
-    <div className="box">
-        <div className="container">
-            CHATBASE
-        </div>
-        <div class="messageDataCont">
+    const chatdisplay =
+        <div className="box">
+            <div className="container-name text-left">
+                {receiver}
+            </div>
+            <div class="messageDataCont">
                 <div class="messageData">
-                    <div class="default">WELCOME {username}<br/>Click on a chat or enter new chat!</div>
+                    {chats.map(data => (
+                        <p class={data.receiver === username ? "left" : "right"} ref={messageRef}>
+                            <div class="data">{data.msg}</div>
+                            <div class="time">{(new Date(data.time).getHours() % 12 || 12) + ":" + ("0" + new Date(data.time).getMinutes()).slice(-2) + " " + (new Date(data.time).getHours() > 11 ? "PM" : "AM")}&ensp;<div class="readreceipts">{(data.status === 'READ' ? "✔" : " ")}&#x2714;</div></div>
+                            <span class="clear"></span>
+                        </p>
+                    ))}
                 </div>
-        </div>
-        <div class="messageCont">
-            <form onSubmit={handleSubmit}>
-                <label>
-                    <input
-                        disabled='disabled'
-                        ref={textInput}
-                        type="text"
-                        placeholder="type your message here"
-                        onChange={e => setMsg(e.target.value)}
-                    />
-                </label>
+            </div>
+            <div class="messageCont">
+                <form onSubmit={handleSubmit} className="d-flex">
+                    <label>
+                        <input
+                            ref={textInput}
+                            type="text"
+                            placeholder="type your message here"
+                            onChange={e => setMsg(e.target.value)}
+                        />
+                    </label>
+                    <div className="sendMsg">
+                        <button type="submit" onClick={clearInput} src={sendIcon}><img src={sendIcon}></img></button>
+                    </div>
+                </form>
+            </div>
+        </div>;
 
-                <button type="submit" onClick={clearInput} src={sendIcon}><img src={sendIcon} disabled='disabled'></img></button>
-            </form>
-        </div>
-    </div>;
+
+    const nulldisplay =
+        <div className="box">
+            <div className="container-name text-left">
+                CHATBASE
+            </div>
+            <div class="messageDataCont">
+                <div class="messageData">
+                    <div class="default">WELCOME {username}<br />Click on a chat or enter new chat!</div>
+                </div>
+            </div>
+        </div>;
 
 
     return (
         <div>
-            {table_name==='DEFAULT'?nulldisplay:chatdisplay}
+            {table_name === 'DEFAULT' ? nulldisplay : chatdisplay}
         </div>
-        
+
     );
 }
 

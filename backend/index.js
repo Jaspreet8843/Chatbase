@@ -8,15 +8,38 @@ const { table } = require("console");
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
+
 const port = 3001;
-app.use(cors());
+app.use(cors({
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST"],
+    credentials: true,
+}));
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended:true}));
+
+app.use(cookieParser());
+app.use(
+    session({
+      key: "userId",
+      secret: "chatbasesecretkey",
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+        expires: 60 * 60 * 24,
+      },
+    })
+  );
 
 const db = mysql.createPool({
     host: "localhost",
     user: "root",
-    password: "root",
+    password: "",
     database: "chatbase",
 });
 
@@ -136,6 +159,78 @@ io.on('connection',socket=>{
         io.emit('message',msgObj)
     })
 });
+
+app.post("/register", (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+    const fullname = req.body.fullname;
+  
+    bcrypt.hash(password, saltRounds, (err, hash) => {
+      if (err) {
+        console.log(err);
+      }
+  
+      db.query(
+        "INSERT INTO myusers (username, password, fullname) VALUES (?,?,?)",
+        [username, hash,fullname], (err, result) => {
+            if(err){
+                console.log(err);
+                res.send({message: "Account creation failed"});
+            }
+            else{
+                res.send({message:"Account successfully created. Go back to login"});
+            }
+        }
+      );
+    });
+});
+
+app.post("/login", (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+  
+    db.query(
+      "SELECT * FROM myusers WHERE username = ?;",
+      [username], (err, result) => {
+        if (err) {
+          res.send({ err: err });
+        }
+        
+        if (result.length > 0) {
+            bcrypt.compare(password, result[0].password, (error, response) => {
+                if (response) {
+                  req.session.user = result;
+                  //console.log(req.session.user);
+                  res.send(result);
+                } else {
+                  res.send({ message: "Wrong username/password combination!" });
+                }
+              });
+        } 
+        else{
+            res.send({ message: "User doesn't exist" });
+        }
+      }
+    );
+});
+
+app.get("/login", (req, res) => {
+if (req.session.user) {
+    res.send({ loggedIn: true, user: req.session.user });
+} else {
+    res.send({ loggedIn: false });
+}
+});
+
+app.get("/logout",(req,res)=>{
+    if(req.session.user){
+        req.session.destroy();
+        res.send({message:"logged out"})
+    }
+    else{
+        res.send({message:"already logged out"})
+    }
+})
 
 http.listen(port,()=>{
     console.log("Running express on port 3001");

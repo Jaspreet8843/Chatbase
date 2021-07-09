@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { Component, useEffect, useRef, useState } from 'react';
 import './chatlist.css';
 import {baseUrl} from '../base';
+import {useHistory} from 'react-router-dom';
 
 function Chatlist(props) {
     const username = props.username;
@@ -12,6 +13,7 @@ function Chatlist(props) {
     const onButtonClick=(id)=>{
         props.setChatId(id);
     }
+    const history = useHistory();
 
     useEffect(()=>{
         if (tables.length>0)
@@ -58,7 +60,12 @@ function Chatlist(props) {
         });
     }, []);
 
-
+    const logout = ()=>{
+        axios.get(base+"/logout").then(response =>{
+            console.log(response.data)
+            history.replace("/login");
+        })
+    };
 
 
     const nulldisplay =
@@ -71,14 +78,16 @@ function Chatlist(props) {
 
     const chatdisplay = 
             <div>
-            <form onSubmit={handleSubmit}>
-                <input type="text" placeholder="Enter user name to chat" onChange={e => setMsg(e.target.value)} /> 
-                <button type="submit">Chat</button>
+            <h3>ChatBase {username}</h3>
+            <button onClick={logout}>Logout</button>
+            <form onSubmit={handleSubmit} className="my-2">
+                <input type="text" placeholder="Enter user name to chat" className="chatInput" onChange={e => setMsg(e.target.value)} /> 
+                <button type="submit" className="chatBtn">Chat</button>
             </form>
             {chats.map(data => (
-                <p><button value={data.table_id} onClick={() => onButtonClick(data.table_id)}> {(data.user1 === username) ? data.user2 : data.user1}</button>
+                <span><button className="chatUser" value={data.table_id} onClick={() => onButtonClick(data.table_id)}> {(data.user1 === username) ? data.user2 : data.user1}</button>
                     <br></br>
-                </p>
+                </span>
             ))}
         </div>;          
 

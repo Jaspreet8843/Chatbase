@@ -1,0 +1,42 @@
+.register-div{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+nav{
+    width:100%;
+    margin-bottom: 1rem;
+    background-color: #218838;
+}
+
+nav a{
+    font-weight: 800;
+    margin-left: 1rem;
+}
+
+.register-div form{
+    display: flex;
+    flex-direction: column;
+}
+
+.register-div form div{
+    display: flex;
+    justify-content: center;
+}
+
+.register-div label{
+    margin-top: 0.5rem;
+}
+
+.register-div input{
+    background-color: transparent;
+    color: #000;
+    border: none;
+    padding: 0.2rem 0.5rem;
+    outline: none;
+    border: 1px solid black;
+    border-radius: 10px;
+}
